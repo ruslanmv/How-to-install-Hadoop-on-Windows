@@ -53,6 +53,8 @@ Java is required to run Hadoop. If you have not installed Java , please install 
 You can install Java 8 from the following page:
 
 https://www.oracle.com/it/java/technologies/javase/javase8-archive-downloads.html#license-lightbox
+or simmple by donwloading 
+https://javadl.oracle.com/webapps/download/AutoDL?BundleId=247948_0ae14417abb444ebb02b9815e2103550
 
 I am choosing the Java **SE Runtime Environment 8u202** and I choose the Windows X64 version **jre-8u202-windows-x64.tar**
 
