@@ -1,4 +1,4 @@
-# How to install Hadoop on Windows
+# How to install Hadoop on Windows 11
 
 
 Hello everyone, today we are going to to install Hadoop 3.3.0 on Windows 11.
@@ -18,150 +18,240 @@ https://archive.apache.org/dist/hadoop/common/hadoop-3.3.0/hadoop-3.3.0.tar.gz
 
 
 ## Step 2 - Unpack the package
+
+
 After finishing the file download, we should unpack the package using 7zip or command line.
 
-We open our terminal, and we go to our root
-
-cd \
-
-we create this folder
-
-mkdir Hadoop
-Becuase I am installing Hadoop in folder Haddop  of my C drive (C:\Hadoop) 
-then we copy the unziped file there
-
+```
 cd Downloads 
+```
+
+Because I am installing Hadoop in folder Haddop  of my C drive (C:\Hadoop) 
+
+we create the the directory
+
+```
+mkdir C:\Hadoop
+```
 
 then run the following command to unzip:
 
-tar -xvzf  hadoop-3.3.0.tar.gz
+```
+tar -xvzf  hadoop-3.3.0.tar.gz -C C:\Hadoop\
+```
+
 The command will take quite a few minutes as there are numerous files included and the latest version introduced many new features.
 
-After the unzip command is completed, a new folder hadoop-3.3.0 is created under the destination folder. 
+After the unzip command is completed we have to install the Java.
 
 
-mv hadoop-3.3.0 C:\Hadoop\
+
+## Step 2 -Java  installation
+
+Java is required to run Hadoop. If you have not installed Java , please install it.
+
+You can install Java 8 from the following page:
+
+https://www.oracle.com/it/java/technologies/javase/javase8-archive-downloads.html#license-lightbox
+
+I am choosing the Java **SE Runtime Environment 8u202** and I choose the Windows X64 version **jre-8u202-windows-x64.tar**
+
+After finishing the file download we open a new command prompt, we should unpack the package
+
+```
+cd Downloads 
+```
+
+Because I am installing Java in folder Java of my C drive (C:\Java) 
+
+we create the the directory
+
+```
+mkdir C:\Java
+```
+
+the Java version that
+
+
+
+then run the following command to unzip:
+
+```
+tar -xvzf  jre-8u202-windows-x64.tar.gz -C C:\Java\
+```
+
+
 
 
 ## Step 3 - Install Hadoop native IO binary
 Hadoop on Linux includes optional Native IO support. However Native IO is mandatory on Windows and without it you will not be able to get your installation working. The Windows native IO libraries are not included as part of Apache Hadoop release. Thus we need to build and install it.
 
 infoThe following repository already pre-built Hadoop Windows native libraries:
-https://github.com/kontext-tech/winutils 
-warning These libraries are not signed and there is no guarantee that it is 100% safe. We use it purely for test&learn purpose. 
+
+https://github.com/ruslanmv/How-to-install-Hadoop-on-Windows/tree/master/winutils/hadoop-3.3.0-YARN-8246/bin
+
+warning These libraries are not signed and there is no guarantee that it is 100% safe. We use it purely for test&learn purpose.
+
+
 Download all the files in the following location and save them to the bin folder under Hadoop folder. 
 
+You can use Git by typing in your terminal
 
-https://github.com/ruslanmv/How-to-install-Hadoop-on-Windows/winutils/tree/master/hadoop-3.3.0/bin
+```
+git clone https://github.com/ruslanmv/How-to-install-Hadoop-on-Windows.git
+```
 
+and then copy
 
-
-
-## Step 4 - (Optional) Java JDK installation
-Java JDK is required to run Hadoop. If you have not installed Java JDK, please install it.
-
-You can install JDK 8 from the following page:
-
-https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-
-Once you complete the installation, please run the following command in PowerShell or Git Bash to verify:
+```
+cd How-to-install-Hadoop-on-Windows\winutils\hadoop-3.3.0-YARN-8246\bin
+copy *.*  C:\Hadoop\hadoop-3.3.0\bin
+```
 
 
-$ java -version
-java version "1.8.0_161"
-Java(TM) SE Runtime Environment (build 1.8.0_161-b12)
-Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)
-If you got error about 'cannot find java command or executable'. Don't worry we will resolve this in the following step.
 
-Step 5 - Configure environment variables
+
+## Step 5 - Configure environment variables
+
 Now we've downloaded and unpacked all the artefacts we need to configure two important environment variables.
 
-Configure JAVA_HOME environment variable
-As mentioned earlier, Hadoop requires Java and we need to configure JAVA_HOME environment variable (though it is not mandatory but I recommend it).
+First you click the windows button and type environment
 
-First, we need to find out the location of Java SDK. In my system, the path is: D:\Java\jdk1.8.0_161.
-
-
-
-Your location can be different depends on where you install your JDK.
-
-And then run the following command in the previous PowerShell window:
-
-SETX JAVA_HOME "D:\Java\jdk1.8.0_161" 
-Remember to quote the path especially if you have spaces in your JDK path.
-
-infoYou can setup environment variable at system level by adding option /M however just in case you don't have access to change system variables, you can just set it up at user level.
-The output looks like the following:
+![image-20230507121326401](assets/images/posts/README/image-20230507121326401.png)
 
 
 
-Configure HADOOP_HOME environment variable
-Similarly we need to create a new environment variable for HADOOP_HOME using the following command. The path should be your extracted Hadoop folder. For my environment it is: F:\big-data\hadoop-3.3.0.
+### Configure  Environment variables
 
-If you used PowerShell to download and if the window is still open, you can simply run the following command:
+We configure **JAVA_HOME** environment variable
 
-SETX HADOOP_HOME $dest_dir+"/hadoop-3.3.0"                        
-The output looks like the following screenshot:
+by adding new  environment variable
 
 
 
-Alternatively, you can specify the full path:
-
-SETX HADOOP_HOME "F:\big-data\hadoop-3.3.0"
-Now you can also verify the two environment variables in the system:
+Variable name : `JAVA_HOME`
+Variable value:  `C:\Java\jre1.8.0_202`
 
 
 
-Configure PATH environment variable
-Once we finish setting up the above two environment variables, we need to add the bin folders to the PATH environment variable. 
+![image-20230507121225400](assets/images/posts/README/image-20230507121225400.png)
+
+the same with  **HADOOP_HOME** environment variable
+
+
+
+Variable name : `HADOOP_HOME`
+Variable value:  `C:\Hadoop\hadoop-3.3.0`
+
+
+
+![image-20230507121111326](assets/images/posts/README/image-20230507121111326.png)
+
+
+
+### b) Configure PATH environment variable
+
+Once we finish setting up the above two environment variables, we need to add the bin folders to the PATH environment variable. We click on Edit
+
+![image-20230507121941482](assets/images/posts/README/image-20230507121941482.png)
 
 If PATH environment exists in your system, you can also manually add the following two paths to it:
 
+```
 %JAVA_HOME%/bin
 %HADOOP_HOME%/bin
-Alternatively, you can run the following command to add them:
-
-setx PATH "$env:PATH;$env:JAVA_HOME/bin;$env:HADOOP_HOME/bin"
-
-If you don't have other user variables setup in the system, you can also directly add a Path environment variable that references others to make it short:
+```
 
 
 
-Close PowerShell window and open a new one and type winutils.exe directly to verify that our above steps are completed successfully:
+![image-20230507122647964](assets/images/posts/README/image-20230507122647964.png)
 
 
+
+### Verification of Installation
+
+Once you complete the installation, Close your terminal window and open a new one and please run the following command  to verify:
+
+```
+java -version
+```
+
+you will have 
+
+```
+java version "1.8.0_291"
+Java(TM) SE Runtime Environment (build 1.8.0_291-b10)
+Java HotSpot(TM) Client VM (build 25.291-b10, mixed mode, sharing)
+```
 
 You should also be able to run the following command:
 
+```
 hadoop -version
-java version "1.8.0_161"
-Java(TM) SE Runtime Environment (build 1.8.0_161-b12)
-Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)
-Step 6 - Configure Hadoop
+```
+
+```
+java version "1.8.0_202"
+Java(TM) SE Runtime Environment (build 1.8.0_202-b08)
+Java HotSpot(TM) 64-Bit Server VM (build 25.202-b08, mixed mode)
+
+```
+
+and finally directly to verify that our above steps are completed successfully:
+
+```
+winutils.exe 
+```
+
+
+
+![image-20230507125319908](assets/images/posts/README/image-20230507125319908.png)
+
+
+
+
+
+## Step 6 - Configure Hadoop
+
 Now we are ready to configure the most important part - Hadoop configurations which involves Core, YARN, MapReduce, HDFS configurations. 
 
-Configure core site
-Edit file core-site.xml in %HADOOP_HOME%\etc\hadoop folder. For my environment, the actual path is F:\big-data\hadoop-3.3.0\etc\hadoop.
+### Configure core site
+
+Edit file **core-site.xml** in %HADOOP_HOME%\etc\hadoop folder. 
+
+For my environment, the actual path is C:\Hadoop\hadoop-3.3.0\etc\hadoop
 
 Replace configuration element with the following:
 
+```
 <configuration>
    <property>
      <name>fs.default.name</name>
      <value>hdfs://0.0.0.0:19000</value>
    </property>
 </configuration>
-Configure HDFS
-Edit file hdfs-site.xml in %HADOOP_HOME%\etc\hadoop folder. 
+```
+
+
+
+### Configure HDFS
+
+Edit file **hdfs-site.xml** in %HADOOP_HOME%\etc\hadoop folder. 
 
 Before editing, please correct two folders in your system: one for namenode directory and another for data directory.  For my system, I created the following two sub folders:
 
-C:\hadoop\hadoop-3.3.0\data\datanode
-C:\hadoop\hadoop-3.3.0\data\namenode
+```
+mkdir C:\hadoop\hadoop-3.3.0\data\datanode
+```
+
+```
+mkdir C:\hadoop\hadoop-3.3.0\data\namenode
+```
 
 
 Replace configuration element with the following (remember to replace the highlighted paths accordingly):
 
+```
 <configuration>
    <property>
      <name>dfs.replication</name>
@@ -176,18 +266,17 @@ Replace configuration element with the following (remember to replace the highli
      <value>/hadoop/hadoop-3.3.0/data/datanode</value>
    </property>
 </configuration>
+```
 
-In Hadoop 3, the property names are slightly different from previous version. Refer to the following official documentation to learn more about the configuration properties:
 
-Hadoop 3.3.0 hdfs_default.xml
 
-infoFor DFS replication we configure it as one as we are configuring just one single node. By default the value is 3.
-infoThe directory configuration are not mandatory and by default it will use Hadoop temporary folder. For our tutorial purpose, I would recommend customise the values. 
-Configure MapReduce and YARN site
-Edit file mapred-site.xml in %HADOOP_HOME%\etc\hadoop folder. 
+### Configure MapReduce and YARN site
+
+Edit file **mapred-site.xml** in %HADOOP_HOME%\etc\hadoop folder. 
 
 Replace configuration element with the following:
 
+```
 <configuration>
     <property>
         <name>mapreduce.framework.name</name>
@@ -198,10 +287,11 @@ Replace configuration element with the following:
         <value>%HADOOP_HOME%/share/hadoop/mapreduce/*,%HADOOP_HOME%/share/hadoop/mapreduce/lib/*,%HADOOP_HOME%/share/hadoop/common/*,%HADOOP_HOME%/share/hadoop/common/lib/*,%HADOOP_HOME%/share/hadoop/yarn/*,%HADOOP_HOME%/share/hadoop/yarn/lib/*,%HADOOP_HOME%/share/hadoop/hdfs/*,%HADOOP_HOME%/share/hadoop/hdfs/lib/*</value>
     </property>
 </configuration>
+```
 
+Edit file **yarn-site.xml** in %HADOOP_HOME%\etc\hadoop folder. 
 
-Edit file yarn-site.xml in %HADOOP_HOME%\etc\hadoop folder. 
-
+```
 <configuration>
     <property>
         <name>yarn.nodemanager.aux-services</name>
@@ -212,40 +302,61 @@ Edit file yarn-site.xml in %HADOOP_HOME%\etc\hadoop folder.
         <value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME</value>
     </property>
 </configuration>
+```
 
 
 
-Step 7 - Initialise HDFS 
+![image-20230507133653643](assets/images/posts/README/image-20230507133653643.png)
+
+
+
+### Step 7 - Initialise HDFS 
+
 Run the following command in Command Prompt 
 
+```
 hdfs namenode -format
+```
+
 The following is an example when it is formatted successfully:
 
+![image-20230507133808803](assets/images/posts/README/image-20230507133808803.png)
 
-Step 8 - Start HDFS daemons 
+### Step 8 - Start HDFS daemons 
+
 Run the following command to start HDFS daemons in Command Prompt:
 
+```
 %HADOOP_HOME%\sbin\start-dfs.cmd
+```
+
 Two Command Prompt windows will open: one for datanode and another for namenode as the following screenshot shows:
+
+![image-20230507134058063](assets/images/posts/README/image-20230507134058063.png)
 
 Verify HDFS web portal UI through this link: http://localhost:9870/dfshealth.html#tab-overview.
 
 
 You can also navigate to a data node UI:
 
+![image-20230507134126706](assets/images/posts/README/image-20230507134126706.png)
 
+![image-20230507134148506](assets/images/posts/README/image-20230507134148506.png)
 
-Step 9 - Start YARN daemons
+### Step 9 - Start YARN daemons
+
 warning You may encounter permission issues if you start YARN daemons using normal user. To ensure you don't encounter any issues. Please open a Command Prompt window using Run as administrator.
-Alternatively, you can follow this comment on this page which doesn't require Administrator permission using a local Windows account:
+
 Run the following command in an elevated Command Prompt window (Run as administrator) to start YARN daemons:
 
+```
 %HADOOP_HOME%\sbin\start-yarn.cmd
+```
+
 Similarly two Command Prompt windows will open: one for resource manager and another for node manager as the following screenshot shows:
 
 
 You can verify YARN resource manager UI when all services are started successfully. 
 
 http://localhost:8088
-
 
