@@ -50,13 +50,8 @@ After the unzip command is completed we have to install the Java.
 
 Java is required to run Hadoop. If you have not installed Java , please install it.
 
-You can install Java 8 from the following page:
-
-https://www.oracle.com/it/java/technologies/javase/javase8-archive-downloads.html#license-lightbox
-or simmple by donwloading 
+You can install Java 8 from the following page [here](https://www.oracle.com/it/java/technologies/javase/javase8-archive-downloads.html#license-lightbox). I am choosing the Java **SE Runtime Environment** and I choose the Windows X64 version by 
 https://javadl.oracle.com/webapps/download/AutoDL?BundleId=247948_0ae14417abb444ebb02b9815e2103550
-
-I am choosing the Java **SE Runtime Environment 8u202** and I choose the Windows X64 version **jre-8u202-windows-x64.tar**
 
 After finishing the file download we open a new command prompt, we should unpack the package
 
@@ -79,7 +74,7 @@ the Java version that
 then run the following command to unzip:
 
 ```
-tar -xvzf  jre-8u202-windows-x64.tar.gz -C C:\Java\
+tar -xvzf  jre-8u361-windows-x64.tar.gz -C C:\Java\
 ```
 
 
@@ -132,7 +127,7 @@ by adding new  environment variable
 
 
 Variable name : `JAVA_HOME`
-Variable value:  `C:\Java\jre1.8.0_202`
+Variable value:  `C:\Java\jre1.8.0_361`
 
 
 
@@ -181,9 +176,9 @@ java -version
 you will have 
 
 ```
-java version "1.8.0_291"
-Java(TM) SE Runtime Environment (build 1.8.0_291-b10)
-Java HotSpot(TM) Client VM (build 25.291-b10, mixed mode, sharing)
+java version "1.8.0_361"
+Java(TM) SE Runtime Environment (build 1.8.0_361-b09)
+Java HotSpot(TM) 64-Bit Server VM (build 25.361-b09, mixed mode)
 ```
 
 You should also be able to run the following command:
@@ -193,13 +188,16 @@ hadoop -version
 ```
 
 ```
-java version "1.8.0_202"
-Java(TM) SE Runtime Environment (build 1.8.0_202-b08)
-Java HotSpot(TM) 64-Bit Server VM (build 25.202-b08, mixed mode)
-
+java version "1.8.0_361"
+Java(TM) SE Runtime Environment (build 1.8.0_361-b09)
+Java HotSpot(TM) 64-Bit Server VM (build 25.361-b09, mixed mode)
 ```
 
-and finally directly to verify that our above steps are completed successfully:
+
+
+Please verify that both versions of hadoop java and java coincide.
+
+Finally directly to verify that our above steps are completed successfully:
 
 ```
 winutils.exe 
@@ -332,6 +330,12 @@ Run the following command to start HDFS daemons in Command Prompt:
 %HADOOP_HOME%\sbin\start-dfs.cmd
 ```
 
+Please click Allow access to the java.
+
+![image-20230507142854582](assets/images/posts/README/image-20230507142854582.png)
+
+
+
 Two Command Prompt windows will open: one for datanode and another for namenode as the following screenshot shows:
 
 ![image-20230507134058063](assets/images/posts/README/image-20230507134058063.png)
@@ -357,8 +361,11 @@ Run the following command in an elevated Command Prompt window (Run as administr
 
 Similarly two Command Prompt windows will open: one for resource manager and another for node manager as the following screenshot shows:
 
+![](assets/images/posts/README/image-202305071341485061.png)
+
 
 You can verify YARN resource manager UI when all services are started successfully. 
 
 http://localhost:8088
 
+![](assets/images/posts/README/image-20230508.jpg)
