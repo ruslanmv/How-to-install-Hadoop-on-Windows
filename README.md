@@ -146,6 +146,9 @@ If PATH environment exists in your system, you can also manually add the followi
 
 ```
 %JAVA_HOME%\bin
+```
+
+```
 %HADOOP_HOME%\bin
 ```
 
