@@ -145,8 +145,13 @@ Once we finish setting up the above two environment variables, we need to add th
 If PATH environment exists in your system, you can also manually add the following two paths to it:
 
 ```
-%JAVA_HOME%/bin
-%HADOOP_HOME%/bin
+%JAVA_HOME%\bin
+```
+
+then
+
+``` 
+%HADOOP_HOME%\bin
 ```
 
 
